@@ -35,7 +35,7 @@ public class EncryptUtil {
       // inputByteArray是输入字符串转换得到的字节数组
       byte[] result = messageDigest.digest(inputByteArray);
 
-      return bytes2hex(result);
+      return Base64Util.byte2base64(result);
     } catch (NoSuchAlgorithmException e) {
       return null;
     } catch (UnsupportedEncodingException e) {
@@ -66,28 +66,6 @@ public class EncryptUtil {
     } catch (UnsupportedEncodingException e) {
       return null;
     }
-  }
-
-  /**
-   * 将字节数组转换成16进制输出
-   * @param bytes 字节数组
-   * @return 16进制输出
-   */
-  private static String bytes2hex(byte[] bytes) {
-    StringBuilder hex = new StringBuilder();
-    for (int i = 0; i < bytes.length; i++) {
-      byte b = bytes[i];
-      boolean negative = false;
-      if (b < 0) negative = true;
-      int inte = Math.abs(b);
-      if (negative) inte = inte | 0x80;
-      String temp = Integer.toHexString(inte & 0xFF);
-      if (temp.length() == 1) {
-        hex.append("0");
-      }
-      hex.append(temp.toLowerCase());
-    }
-    return hex.toString();
   }
 
   /**
