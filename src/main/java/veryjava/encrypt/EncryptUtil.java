@@ -70,13 +70,21 @@ public class EncryptUtil {
 
   /**
    * 获取一个des key
-   * @param type EncryptType.DES EncryptType.AES
    */
-  public static SecretKey getKeyDES(EncryptType type) throws Exception {
-    KeyGenerator keyGen = KeyGenerator.getInstance(type.toString());
-    keyGen.init(128);
+  public static SecretKey getKeyDES() throws Exception {
+    KeyGenerator keyGen = KeyGenerator.getInstance(EncryptType.DES.toString());
+    keyGen.init(56);
     SecretKey key = keyGen.generateKey();
     return key;
+  }
+
+  /**
+   * 获取一个aes key
+   */
+  public static SecretKey getKeyAES() throws Exception {
+    KeyGenerator keyGen = KeyGenerator.getInstance(EncryptType.AES.toString());
+    keyGen.init(128);
+    return keyGen.generateKey();
   }
 
   /**

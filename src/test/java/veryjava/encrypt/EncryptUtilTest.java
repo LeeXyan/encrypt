@@ -27,7 +27,7 @@ public class EncryptUtilTest {
 
   @Test
   public void testDES() throws Exception {
-    SecretKey key = EncryptUtil.getKeyDES(EncryptType.DES);
+    SecretKey key = EncryptUtil.getKeyDES();
 
     String content = "sunshineasbefore";
 
@@ -39,14 +39,14 @@ public class EncryptUtilTest {
   @Test
   public void testStringDES() throws Exception {
     String content = "sunshineasbefore";
-    SecretKey key = EncryptUtil.getKeyDES(EncryptType.DES);
+    SecretKey key = EncryptUtil.getKeyDES();
     String res = EncryptUtil.desEncrypt(content, key);
     System.out.println(EncryptUtil.desDecrypt(res, key));
   }
 
   @Test
   public void testAES() throws Exception {
-    SecretKey key = EncryptUtil.getKeyDES(EncryptType.AES);
+    SecretKey key = EncryptUtil.getKeyAES();
 
     String content = "sunshineasbefore";
 
@@ -58,7 +58,7 @@ public class EncryptUtilTest {
   @Test
   public void testStringAES() throws Exception {
     String content = "sunshineasbefore";
-    SecretKey key = EncryptUtil.getKeyDES(EncryptType.AES);
+    SecretKey key = EncryptUtil.getKeyAES();
     String res = EncryptUtil.aesEncrypt(content, key);
     System.out.println(EncryptUtil.aesDecrypt(res, key));
   }

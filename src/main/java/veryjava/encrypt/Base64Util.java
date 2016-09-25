@@ -1,7 +1,7 @@
 package veryjava.encrypt;
 
+import org.apache.commons.codec.binary.Base64;
 import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 
@@ -19,15 +19,13 @@ public class Base64Util {
    * 用base64包装byte数组
    */
   public static String byte2base64(byte[] bytes) {
-    BASE64Encoder base64Encoder = new BASE64Encoder();
-    return base64Encoder.encode(bytes);
+    return Base64.encodeBase64String(bytes);
   }
 
   /**
    * 将byte数组去除base64包装
    */
   public static byte[] base642byte(String base64) throws IOException {
-    BASE64Decoder base64Decoder = new BASE64Decoder();
-    return base64Decoder.decodeBuffer(base64);
+    return Base64.decodeBase64(base64);
   }
 }
