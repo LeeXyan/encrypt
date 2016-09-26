@@ -1,4 +1,4 @@
-package veryjava.encrypt;
+package cn.veryjava.encrypt;
 
 /**
  * 描述: TODO:
@@ -10,5 +10,5 @@ package veryjava.encrypt;
  * JDK: since 1.8
  */
 public enum EncryptType {
-  MD5, SHA1, AES, DES, RSA
+  MD5, SHA1, AES, DES, RSA, HmacMD5, HmacSHA1
 }
