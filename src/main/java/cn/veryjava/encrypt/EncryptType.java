@@ -1,7 +1,7 @@
 package cn.veryjava.encrypt;
 
 /**
- * 描述: TODO:
+ * 描述: 加解密算法类型
  * 包名: veryjava.encrypt.
  * 作者: barton.
  * 日期: 16-9-23.

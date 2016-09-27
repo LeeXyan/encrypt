@@ -6,7 +6,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * 描述: RSA非对称加密解密算法
+ * 描述: RSA非对称加密解密算法工具类.
  * 包名: veryjava.encrypt.
  * 作者: barton.
  * 日期: 16-9-23.

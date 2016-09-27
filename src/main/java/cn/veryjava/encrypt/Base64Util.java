@@ -3,7 +3,7 @@ package cn.veryjava.encrypt;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * 描述: 继承自org.apache.commons.codec.binary.Base64.方便扩展
+ * 描述: Base64算法工具类.继承自org.apache.commons.codec.binary.Base64.方便扩展
  * 包名: cn.veryjava.encrypt.
  * 作者: barton.
  * 日期: 16-9-26.

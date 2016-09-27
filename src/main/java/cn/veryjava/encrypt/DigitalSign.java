@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.security.PublicKey;
 
 /**
- * 描述: TODO:
+ * 描述: 数字签名算法工具类.
  * 包名: cn.veryjava.encrypt.
  * 作者: barton.
  * 日期: 16-9-27.

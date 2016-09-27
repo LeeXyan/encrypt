@@ -5,7 +5,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * 描述: 继承自org.apache.commons.codec.digest.DigestUtils.方便扩展
+ * 描述: 消息摘要算法工具类.继承自org.apache.commons.codec.digest.DigestUtils.方便扩展
  * 包名: cn.veryjava.encrypt.
  * 作者: barton.
  * 日期: 16-9-26.
