@@ -6,7 +6,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * 描述: TODO:
+ * 描述: 对称加密算法的DES AES实现
  * 包名: cn.veryjava.encrypt.
  * 作者: barton.
  * 日期: 16-9-26.
@@ -20,7 +20,7 @@ public class EncryptUtil {
    */
   public static SecretKey getKeyDES() throws Exception {
 
-    byte[] key = HexUtil.decodeHex(new char[]{'1', '2', '1', '4', '5', '6', '7', '8', '9', 'a',
+    byte[] key = HexUtil.decodeHex(new char[]{'1', 'a', '1', '4', '5', 'f', '7', 'e', '9', 'a',
      'b', 'c', 'd', 'e', 'f', '0'});
 
     SecretKey secretKey = new SecretKeySpec(key, EncryptType.DES.toString());
