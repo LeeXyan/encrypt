@@ -10,5 +10,5 @@ package cn.veryjava.encrypt;
  * JDK: since 1.8
  */
 public enum EncryptType {
-  MD5, SHA1, AES, DES, RSA, HmacMD5, HmacSHA1
+  MD5, SHA1, AES, DES, RSA, HmacMD5, HmacSHA1, MD5withRSA, SHA1withRSA
 }
