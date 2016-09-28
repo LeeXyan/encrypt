@@ -16,6 +16,13 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class EncryptUtil {
   /**
+   * 私有化构造方法
+   */
+  private EncryptUtil() {
+
+  }
+
+  /**
    * 获取一个des key
    */
   public static SecretKey getKeyDES() throws Exception {

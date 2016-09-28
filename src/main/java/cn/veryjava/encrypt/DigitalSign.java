@@ -21,6 +21,12 @@ import java.security.spec.X509EncodedKeySpec;
  * JDK: since 1.8
  */
 public class DigitalSign {
+  /**
+   * 私有化构造方法
+   */
+  private DigitalSign() {
+
+  }
 
   /**
    * MD5withRSA使用密钥进行加密
