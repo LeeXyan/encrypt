@@ -1,5 +1,6 @@
 package cn.veryjava.encrypt;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
@@ -81,20 +82,34 @@ public class CertificateUtil {
 
   /**
    * 使用私钥签名
+   * @param keyStoreFilePath keyStore文件目录
+   * @param alias 别名
    * @param content 原文内容
-   * @param privateKey 私钥
+   * @param password 密码
    */
-  public static byte[] sign(byte[] content, PrivateKey privateKey) throws Exception {
+  public static byte[] sign(String keyStoreFilePath, String alias, String password, byte[] content)
+   throws Exception {
+    // 1.获得keystore的输入流
+    FileInputStream keyStoreInputStream = new FileInputStream(keyStoreFilePath);
+    // 2.获得私钥
+    PrivateKey privateKey = CertificateUtil.getPrivateKey(keyStoreInputStream, alias, password);
+
     return DigitalSign.SHA1withRSASignBytes(content, privateKey);
   }
 
   /**
    * 使用公玥验证签名
+   * @param certificatePath certificate文件目录
    * @param content 原文内容
    * @param sign 签名字节数组
-   * @param publicKey 公玥
    */
-  public static boolean verifySign(byte[] content, byte[] sign, PublicKey publicKey) throws Exception {
+  public static boolean verifySign(String certificatePath, byte[] content, byte[] sign) throws
+   Exception {
+    // 获得证书的输入流
+    FileInputStream certificateInputStream = new FileInputStream(certificatePath);
+    // 获得公玥
+    PublicKey publicKey = CertificateUtil.getPublicKey(certificateInputStream);
+
     return DigitalSign.SHA1withRSAVerify(content, sign, publicKey);
   }
 

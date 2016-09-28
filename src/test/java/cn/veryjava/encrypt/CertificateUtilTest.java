@@ -25,19 +25,12 @@ public class CertificateUtilTest {
 
   @Test
   public void testCertificate() throws Exception {
-    // 1.获得keystore的输入流
-    FileInputStream keyStoreInputStream = new FileInputStream(keyStorePath);
-    // 2.获得私钥
-    PrivateKey privateKey = CertificateUtil.getPrivateKey(keyStoreInputStream, alias, password);
-    // 3.将src生成签名
-    byte[] sign = CertificateUtil.sign(src.getBytes(), privateKey);
 
-    // 4. 发送给响应方
-    // 5.获得证书的输入流
-    FileInputStream certificateInputStream = new FileInputStream(certificatePath);
-    //6.获得公玥
-    PublicKey publicKey = CertificateUtil.getPublicKey(certificateInputStream);
-    // 7.使用公玥验证签名
-    System.out.println("verify:" + CertificateUtil.verifySign(src.getBytes(), sign, publicKey));
+    // 将src生成签名
+    byte[] sign = CertificateUtil.sign(keyStorePath, alias, password, src.getBytes());
+    // 发送请求给响应方
+    // 使用公玥验证签名
+    System.out.println("verify:" + CertificateUtil.verifySign(certificatePath, src.getBytes(),
+     sign));
   }
 }
