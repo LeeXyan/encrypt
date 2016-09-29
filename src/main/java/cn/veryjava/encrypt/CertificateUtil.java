@@ -11,9 +11,15 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.Enumeration;
 
+
 /**
- * 数字证书签名/加解密工具类
- * 目前仅支持 SHA1withRSA
+ * 描述: 数字证书签名/加解密工具类,目前仅支持 SHA1withRSA
+ * 包名: cn.veryjava.encrypt.
+ * 作者: barton.
+ * 日期: 16-9-26.
+ * 项目名称: encrypt
+ * 版本: 1.0
+ * JDK: since 1.8
  */
 public class CertificateUtil {
 
