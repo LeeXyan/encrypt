@@ -20,11 +20,14 @@ public class RSAUtil {
    * 获取KeyPair,用来产生配对的公钥和私钥
    * key长度默认为512位
    */
-  public static KeyPair getKeyPair() throws Exception {
-    KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(EncryptType.RSA.toString());
-
+  public static KeyPair getKeyPair() {
+    KeyPairGenerator keyPairGenerator = null;
+    try {
+      keyPairGenerator = KeyPairGenerator.getInstance(EncryptType.RSA.toString());
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException("获取KeyPair失败");
+    }
     keyPairGenerator.initialize(512);
-
     KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
     return keyPair;
@@ -83,7 +86,7 @@ public class RSAUtil {
       cipher.init(Cipher.ENCRYPT_MODE, key);
       return cipher.doFinal(src);
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥加密失败");
     }
   }
 
@@ -97,7 +100,7 @@ public class RSAUtil {
       cipher.init(Cipher.ENCRYPT_MODE, key);
       return cipher.doFinal(src.getBytes());
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥加密失败");
     }
   }
 
@@ -112,7 +115,7 @@ public class RSAUtil {
       cipher.init(Cipher.ENCRYPT_MODE, key);
       return Base64Util.encodeBase64String(cipher.doFinal(src));
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥加密失败");
     }
   }
 
@@ -126,7 +129,7 @@ public class RSAUtil {
       cipher.init(Cipher.ENCRYPT_MODE, key);
       return Base64Util.encodeBase64String(cipher.doFinal(src.getBytes()));
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥加密失败");
     }
   }
 
@@ -141,7 +144,7 @@ public class RSAUtil {
       cipher.init(Cipher.DECRYPT_MODE, key);
       return cipher.doFinal(src);
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥解密失败");
     }
   }
 
@@ -157,7 +160,7 @@ public class RSAUtil {
       byte[] input = Base64Util.decodeBase64(src);
       return cipher.doFinal(input);
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥解密失败");
     }
   }
 
@@ -172,7 +175,7 @@ public class RSAUtil {
       cipher.init(Cipher.DECRYPT_MODE, key);
       return new String(cipher.doFinal(src));
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥解密失败");
     }
   }
 
@@ -188,7 +191,7 @@ public class RSAUtil {
       byte[] input = Base64Util.decodeBase64(src);
       return new String(cipher.doFinal(input));
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("RSA使用私钥或者公玥解密失败");
     }
   }
 }

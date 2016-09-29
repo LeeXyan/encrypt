@@ -41,7 +41,7 @@ public class DigestUtil extends org.apache.commons.codec.digest.DigestUtils {
       return hmacMD5Bytes;
 
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("hmacMD5摘要失败");
     }
   }
 
@@ -79,7 +79,7 @@ public class DigestUtil extends org.apache.commons.codec.digest.DigestUtils {
       return hmacSHA1Bytes;
 
     } catch (Exception e) {
-      return null;
+      throw new RuntimeException("hmacSHA1摘要失败");
     }
   }
 

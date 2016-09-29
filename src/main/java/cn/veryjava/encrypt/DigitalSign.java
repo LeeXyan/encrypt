@@ -1,9 +1,7 @@
 package cn.veryjava.encrypt;
 
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -30,17 +28,22 @@ public class DigitalSign {
   /**
    * MD5withRSA私钥签名
    */
-  public static byte[] MD5withRSASignBytes(byte[] content, PrivateKey key) throws Exception {
+  public static byte[] MD5withRSASignBytes(byte[] content, PrivateKey key) {
 
     PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(key.getEncoded());
-    KeyFactory keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
-    PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+    KeyFactory keyFactory;
+    try {
+      keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
+      PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
 
-    Signature signature = Signature.getInstance(EncryptType.MD5withRSA.toString());
-    signature.initSign(privateKey);
-    signature.update(content);
+      Signature signature = Signature.getInstance(EncryptType.MD5withRSA.toString());
+      signature.initSign(privateKey);
+      signature.update(content);
 
-    return signature.sign();
+      return signature.sign();
+    } catch (Exception e) {
+      throw new RuntimeException("MD5withRSA私钥签名失败");
+    }
   }
 
   /**
@@ -48,91 +51,103 @@ public class DigitalSign {
    * @param content 原文内容,不要经过base64.encode处理
    * @param key 私钥
    */
-  public static byte[] MD5withRSASignBytes(String content, PrivateKey key) throws Exception {
+  public static byte[] MD5withRSASignBytes(String content, PrivateKey key) {
     return MD5withRSASignBytes(content.getBytes(), key);
   }
 
   /**
    * MD5withRSA私钥签名
    */
-  public static String MD5withRSASignString(byte[] content, PrivateKey key) throws Exception {
+  public static String MD5withRSASignString(byte[] content, PrivateKey key) {
     return Base64Util.encodeBase64String(MD5withRSASignBytes(content, key));
   }
 
   /**
    * MD5withRSA私钥签名
    */
-  public static String MD5withRSASignString(String content, PrivateKey key) throws Exception {
+  public static String MD5withRSASignString(String content, PrivateKey key) {
     return Base64Util.encodeBase64String(MD5withRSASignBytes(content, key));
   }
 
   /**
    * MD5withRSA使用公玥验证
    */
-  public static boolean MD5withRSAVerify(byte[] content, byte[] sign, PublicKey key) throws
-   Exception {
+  public static boolean MD5withRSAVerify(byte[] content, byte[] sign, PublicKey key) {
 
     X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(key.getEncoded());
-    KeyFactory keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
-    PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
+    KeyFactory keyFactory;
+    try {
+      keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
+      PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
 
-    Signature signature = Signature.getInstance(EncryptType.MD5withRSA.toString());
-    signature.initVerify(publicKey);
-    signature.update(content);
-
-    return signature.verify(sign);
+      Signature signature = Signature.getInstance(EncryptType.MD5withRSA.toString());
+      signature.initVerify(publicKey);
+      signature.update(content);
+      return signature.verify(sign);
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   /**
    * SHA1withRSA使用公玥验证
    */
-  public static boolean SHA1withRSAVerify(byte[] content, byte[] sign, PublicKey key) throws
-   Exception {
+  public static boolean SHA1withRSAVerify(byte[] content, byte[] sign, PublicKey key) {
 
     X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(key.getEncoded());
-    KeyFactory keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
-    PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
+    KeyFactory keyFactory;
+    try {
+      keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
+      PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
 
-    Signature signature = Signature.getInstance(EncryptType.SHA1withRSA.toString());
-    signature.initVerify(publicKey);
-    signature.update(content);
+      Signature signature = Signature.getInstance(EncryptType.SHA1withRSA.toString());
+      signature.initVerify(publicKey);
+      signature.update(content);
 
-    return signature.verify(sign);
+      return signature.verify(sign);
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   /**
    * SHA1withRSA私钥签名
    */
-  public static byte[] SHA1withRSASignBytes(byte[] content, PrivateKey key) throws Exception {
+  public static byte[] SHA1withRSASignBytes(byte[] content, PrivateKey key) {
     PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(key.getEncoded());
-    KeyFactory keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
-    PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+    KeyFactory keyFactory;
+    Signature signature;
+    try {
+      keyFactory = KeyFactory.getInstance(EncryptType.RSA.toString());
+      PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
 
-    Signature signature = Signature.getInstance(EncryptType.SHA1withRSA.toString());
-    signature.initSign(privateKey);
-    signature.update(content);
-
-    return signature.sign();
+      signature = Signature.getInstance(EncryptType.SHA1withRSA.toString());
+      signature.initSign(privateKey);
+      signature.update(content);
+      return signature.sign();
+    } catch (Exception e) {
+      throw new RuntimeException("SHA1withRSA私钥签名失败");
+    }
   }
 
   /**
    * SHA1withRSA私钥签名
    */
-  public static byte[] SHA1withRSASignBytes(String content, PrivateKey key) throws Exception {
+  public static byte[] SHA1withRSASignBytes(String content, PrivateKey key) {
     return SHA1withRSASignBytes(content.getBytes(), key);
   }
 
   /**
    * SHA1withRSA私钥签名
    */
-  public static String SHA1withRSASignString(byte[] content, PrivateKey key) throws Exception {
+  public static String SHA1withRSASignString(byte[] content, PrivateKey key) {
     return Base64Util.encodeBase64String(SHA1withRSASignBytes(content, key));
   }
 
   /**
    * SHA1withRSA私钥签名
    */
-  public static String SHA1withRSASignString(String content, PrivateKey key) throws Exception {
+  public static String SHA1withRSASignString(String content, PrivateKey key) {
     return Base64Util.encodeBase64String(SHA1withRSASignBytes(content, key));
   }
 }
