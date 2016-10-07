@@ -21,7 +21,7 @@ public class RSAUtil {
    * key长度默认为512位
    */
   public static KeyPair getKeyPair() {
-    KeyPairGenerator keyPairGenerator = null;
+    KeyPairGenerator keyPairGenerator;
     try {
       keyPairGenerator = KeyPairGenerator.getInstance(EncryptType.RSA.toString());
     } catch (NoSuchAlgorithmException e) {
@@ -98,7 +98,7 @@ public class RSAUtil {
     try {
       Cipher cipher = Cipher.getInstance(EncryptType.RSA.toString());
       cipher.init(Cipher.ENCRYPT_MODE, key);
-      return cipher.doFinal(src.getBytes());
+      return cipher.doFinal(src.getBytes("utf8"));
     } catch (Exception e) {
       throw new RuntimeException("RSA使用私钥或者公玥加密失败");
     }
@@ -127,7 +127,7 @@ public class RSAUtil {
     try {
       Cipher cipher = Cipher.getInstance(EncryptType.RSA.toString());
       cipher.init(Cipher.ENCRYPT_MODE, key);
-      return Base64Util.encodeBase64String(cipher.doFinal(src.getBytes()));
+      return Base64Util.encodeBase64String(cipher.doFinal(src.getBytes("utf8")));
     } catch (Exception e) {
       throw new RuntimeException("RSA使用私钥或者公玥加密失败");
     }

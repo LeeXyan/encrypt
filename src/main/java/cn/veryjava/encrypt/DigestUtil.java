@@ -3,6 +3,7 @@ package cn.veryjava.encrypt;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 
 /**
  * 描述: 消息摘要算法工具类.继承自org.apache.commons.codec.digest.DigestUtils.方便扩展
@@ -49,14 +50,22 @@ public class DigestUtil extends org.apache.commons.codec.digest.DigestUtils {
    * hmacMD5 hex
    */
   public static String hmacMD5Hex(String data) {
-    return HexUtil.encodeHexString(hmacMD5(data.getBytes()));
+    try {
+      return HexUtil.encodeHexString(hmacMD5(data.getBytes("utf8")));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
   }
 
   /**
    * hmacMD5 base64
    */
   public static String hmacMD5Base64(String data) {
-    return Base64Util.encodeBase64String(hmacMD5(data.getBytes()));
+    try {
+      return Base64Util.encodeBase64String(hmacMD5(data.getBytes("utf8")));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
   }
 
   /**
@@ -75,9 +84,7 @@ public class DigestUtil extends org.apache.commons.codec.digest.DigestUtils {
       mac.init(restoreSecretKey);
       // 执行摘要
       byte[] hmacSHA1Bytes = mac.doFinal(data);
-
       return hmacSHA1Bytes;
-
     } catch (Exception e) {
       throw new RuntimeException("hmacSHA1摘要失败");
     }
@@ -87,7 +94,11 @@ public class DigestUtil extends org.apache.commons.codec.digest.DigestUtils {
    * hmacSHA1
    */
   public static String hmacSHA1Hex(String data) {
-    return HexUtil.encodeHexString(hmacSHA1(data.getBytes()));
+    try {
+      return HexUtil.encodeHexString(hmacSHA1(data.getBytes("utf8")));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
   }
 
   /**

@@ -4,6 +4,7 @@ import org.apache.commons.codec.DecoderException;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -75,7 +76,12 @@ public class EncryptUtil {
    * DES加密
    */
   public static String desEncrypt(String input, SecretKey key) {
-    byte[] res = desEncrypt(input.getBytes(), key);
+    byte[] res;
+    try {
+      res = desEncrypt(input.getBytes("utf8"), key);
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
     // 为了防止解密时报javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher异常，
     // 不能把加密后的字节数组直接转换成字符串
     return Base64Util.encodeBase64String(res);
@@ -125,7 +131,12 @@ public class EncryptUtil {
    * AES加密
    */
   public static String aesEncrypt(String input, SecretKey key) {
-    byte[] res = aesEncrypt(input.getBytes(), key);
+    byte[] res;
+    try {
+      res = aesEncrypt(input.getBytes("utf8"), key);
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
     // 为了防止解密时报javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher异常，
     // 不能把加密后的字节数组直接转换成字符串
     return Base64Util.encodeBase64String(res);

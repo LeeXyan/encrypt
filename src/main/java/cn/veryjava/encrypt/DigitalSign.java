@@ -1,5 +1,6 @@
 package cn.veryjava.encrypt;
 
+import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -52,7 +53,11 @@ public class DigitalSign {
    * @param key 私钥
    */
   public static byte[] MD5withRSASignBytes(String content, PrivateKey key) {
-    return MD5withRSASignBytes(content.getBytes(), key);
+    try {
+      return MD5withRSASignBytes(content.getBytes("utf8"), key);
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
   }
 
   /**
@@ -134,7 +139,11 @@ public class DigitalSign {
    * SHA1withRSA私钥签名
    */
   public static byte[] SHA1withRSASignBytes(String content, PrivateKey key) {
-    return SHA1withRSASignBytes(content.getBytes(), key);
+    try {
+      return SHA1withRSASignBytes(content.getBytes("utf8"), key);
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("不支持的encode");
+    }
   }
 
   /**
