@@ -1,6 +1,7 @@
 package cn.veryjava.encrypt;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 描述: 将map按字母顺序排序
@@ -22,8 +23,12 @@ public class OrderByWordUtil {
 
   public static String order(Map<String, String> map) {
     // 对map的key进行字母排序
+    Map<String, String> treeMap = new TreeMap<>();
+    treeMap.putAll(map);
+
     StringBuffer sb = new StringBuffer();
-    for (Map.Entry key : map.entrySet()) {
+
+    for (Map.Entry key : treeMap.entrySet()) {
       sb.append(key.getKey() + "=" + key.getValue() + "&");
     }
     final String string = sb.substring(0, sb.length() - 1);
