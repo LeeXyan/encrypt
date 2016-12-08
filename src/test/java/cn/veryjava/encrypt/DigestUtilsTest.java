@@ -2,6 +2,9 @@ package cn.veryjava.encrypt;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 描述: TODO:
  * 包名: cn.veryjava.encrypt.
@@ -47,5 +50,22 @@ public class DigestUtilsTest {
     System.out.println(DigestUtil.hmacSHA1Hex(src));
     System.out.println(HexUtil.encodeHexString(DigestUtil.hmacSHA1(src.getBytes())));
     System.out.println(DigestUtil.hmacSHA1Base64(src));
+  }
+
+  @Test
+  public void testMd5WithOrder() {
+    Map<String, String> params = new HashMap<>();
+
+    params.put("apikey", "1161789");
+    params.put("shopname", "国美店");
+    params.put("amount", "2");
+    params.put("secretkey", "TA2S4W6F");
+
+    // 方式1,自动排序,返回摘要信息
+    System.out.println(DigestUtil.md5WithOrder(params));
+
+    // 方式2,手动排序,返回摘要信息
+    String orderStrs = OrderByWordUtil.order(params);
+    System.out.println(DigestUtil.md5WithOrder(orderStrs));
   }
 }

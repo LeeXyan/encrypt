@@ -4,6 +4,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * 描述: 消息摘要算法工具类.继承自org.apache.commons.codec.digest.DigestUtils.方便扩展
@@ -106,5 +107,16 @@ public class DigestUtil extends org.apache.commons.codec.digest.DigestUtils {
    */
   public static String hmacSHA1Base64(String data) {
     return Base64Util.encodeBase64String(hmacSHA1(data.getBytes()));
+  }
+
+  public static String md5WithOrder(Map<String, String> params) {
+
+    String orderWord = OrderByWordUtil.order(params);
+
+    return md5WithOrder(orderWord);
+  }
+
+  public static String md5WithOrder(String data){
+    return md5Hex(data);
   }
 }
